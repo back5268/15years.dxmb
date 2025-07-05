@@ -15,7 +15,7 @@ function App() {
         <>
             <ToastContainer
                 newestOnTop={true}
-                autoClose={1500} position="top-center"
+                autoClose={2000} position="top-center"
                 theme="light"
                 toastStyle={{
                     background: 'linear-gradient(to right, #fff1eb, #ffdde1)', // hồng kem pastel

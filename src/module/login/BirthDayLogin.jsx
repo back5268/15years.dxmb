@@ -10,8 +10,18 @@ import {useNavigate} from "react-router-dom";
 export default function BirthdayLogin() {
     const [infos, setInfos] = useState({employeeName: '', employeeCode: ''});
     const handleLogin = async () => {
-        if (!infos.employeeCode) return toast.error('Vui lòng nhập mã nhân viên!')
-        if (!infos.employeeName) return toast.error('Vui lòng nhập tên nhân viên!')
+        const code = infos.employeeCode;
+        if (!code) {
+            return toast.error('Vui lòng nhập mã nhân viên!');
+        }
+        if (!infos.employeeName) {
+            return toast.error('Vui lòng nhập tên nhân viên!');
+        }
+        const isAdmin = code === 'MBADMIN7725';
+        const isValidEmployeeCode = /^MB\d{4}$/.test(code);
+        if (!isAdmin && !isValidEmployeeCode) {
+            return toast.error('Mã nhân viên không hợp lệ! Phải bắt đầu bằng "MB" và gồm 4 chữ số.');
+        }
         const info = {...infos}
         const response = await loginApi({...info})
         if (response.status) {
@@ -66,6 +76,7 @@ export default function BirthdayLogin() {
                         <span className="p-input-icon-left">
                             <i className="pi pi-user"/>
                             <InputText placeholder="Mã nhân viên" value={infos.employeeCode}
+                                       maxLength={11}
                                        onChange={(e) => setInfos({...infos, employeeCode: e.target.value})}
                                        className="custom-input"/>
                         </span>
