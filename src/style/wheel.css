@@ -1,0 +1,171 @@
+.wheel-background {
+    position: relative;
+    background: linear-gradient(100deg, #410015, #b1042b);
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 2rem;
+}
+
+/* Hiển thị 2 ảnh nền mờ */
+.wheel-background::before,
+.wheel-background::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    width: 420px;
+    height: auto;
+    opacity: 0.18;
+    z-index: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(1px);
+}
+
+.wheel-background::before {
+    left: 40px;
+    background-image: url('../../src/assets/dxmb-15nam.png');
+}
+
+.wheel-background::after {
+    right: 40px;
+    background-image: url('../../src/assets/slogan.png');
+}
+
+.number-box::before, .number-box::after {
+    content: "";
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    top: -20%;
+    left: -20%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 80%);
+    border-radius: 50%;
+    animation: fireworks 2s linear infinite;
+    z-index: 0;
+}
+
+.number-box::after {
+    animation-delay: 1s;
+}
+
+.fancy-spin-button {
+    width: 11vh;
+    height: 11vh;
+    background: radial-gradient(circle at 30% 30%, #ffecb3, #d48806);
+    color: #7c2700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vh;
+    font-weight: 800;
+    border-radius: 50%;
+    border: 0.4vh solid #fff7e6;
+    box-shadow: 0 0.5vh 1.5vh rgba(255, 215, 0, 0.6),
+    inset 0 0 1vh rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+}
+
+.fancy-spin-button:hover {
+    background: radial-gradient(circle at 30% 30%, #fff7cc, #ffc107);
+    transform: scale(1.08);
+    box-shadow: 0 0.7vh 2vh rgba(255, 255, 153, 0.7),
+    inset 0 0 1.2vh rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+}
+
+.fancy-spin-button:disabled {
+    background: #ccc;
+    color: #999;
+    border-color: #bbb;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+
+.birthday-dropdown {
+    background: linear-gradient(to right, #fff8dc, #ffe97f, #ffd700); /* vàng kem -> gold */
+    color: #6b4000; /* nâu đồng sang chảnh */
+    border: 4px solid #FFFFFF;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 6px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* gold glow */
+    transition: all 0.3s ease;
+    text-align: center;
+    height: 8vh;
+    width: 14vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.birthday-dropdown:hover {
+    box-shadow: 0 0 14px 4px rgba(255, 215, 0, 0.8);
+    background: linear-gradient(to right, #fff8dc, #ffe97f, #ffcc00);
+    cursor: pointer;
+}
+
+.birthday-dropdown .p-dropdown-trigger {
+    display: none !important;
+}
+
+.birthday-dropdown .p-dropdown-label {
+    font-size: 1.2vw !important;
+}
+
+.p-dropdown-items-wrapper {
+
+    font-size: 1vw !important;
+    line-height: 1.9 !important;
+    max-height: none !important;
+    height: auto !important;
+}
+
+.spin-result-dialog .p-dialog-content {
+    background-color: #ffeb3b;
+    border: 4px solid #ffd700;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    padding: 0 !important;
+}
+
+.spin-result-dialog .p-dialog-title {
+    font-size: 2vw !important;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px #fffde7;
+}
+
+.spin-result-dialog .p-dialog-header {
+    background: linear-gradient(135deg, #ffeb3b, #ffd700);
+    color: #6b4000;
+    font-weight: bold;
+    font-size: 10vw !important;
+    border-bottom: 2px dashed #fff176;
+    padding: 2vh 2vw;
+    text-align: center;
+    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.p-dialog {
+    width: 40vw !important;
+    min-width: 420px;
+    max-height: 80vh;
+    height: auto !important;
+    border: 4px solid #ffd700;
+    border-radius: 20px;
+    background: linear-gradient(to bottom right, #fff8dc, #ffe97f);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+    font-size: 1.8rem;
+    overflow: hidden;
+}
+
+@media (min-width: 2200px) {
+    .spin-result-dialog .p-dialog {
+        width: 40vw;
+        font-size: 2.2rem;
+    }
+}
