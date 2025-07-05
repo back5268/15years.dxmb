@@ -72,23 +72,27 @@ const styles = {
 };
 
 const Wheel = () => {
-    const [displayCode, setDisplayCode] = useState(['M', 'B', '0', '0', '0', '0']);
+    const [displayCode, setDisplayCode] = useState(['M', 'B', '0', '0', '0', '0', '0']);
     const [params, setParams] = useState({render: false});
     const [infos, setInfos] = useState({});
     const [round, setRound] = useState(0);
     const [spinning, setSpinning] = useState(false);
     const [showResult, setShowResult] = useState(false);
     const [winner, setWinner] = useState(null);
-
     const {data: listPrizes} = useFetch(getPrizeApi, params, [JSON.stringify(params)]);
-    console.log(listPrizes, 87)
-
+    useEffect(() => {
+        if (listPrizes && listPrizes?.[0] && infos.prize) {
+            const findPrize = listPrizes.find(l => l.code === infos.prize);
+            if (findPrize) {
+                setRound(Number(findPrize.quantity) - Number(findPrize.awarded));
+            }
+        }
+    }, [JSON.stringify(listPrizes)]);
     const spin = async () => {
         if (spinning) return;
         try {
             if (!infos.prize) return toast.error('Chọn giải thưởng trước khi quay');
             const result = await spinApi({prizeCode: infos.prize})
-            console.log(result, 87)
             if (!result.status) {
                 toast.error(result.mess || 'Quay thất bại!');
                 setSpinning(false);
@@ -100,18 +104,15 @@ const Wheel = () => {
             setSpinning(true);
             setShowResult(false);
             setWinner(null);
-            // 🎲 SAU 5 GIÂY: Bắt đầu dừng các ô
             setTimeout(() => {
                 setDisplayCode(tempWinner.employeeCode.split(''));
-
-                // 🎯 CHỜ 2 GIÂY NỮA để các ô dừng hoàn toàn
                 setTimeout(() => {
                     setSpinning(false);
-                    setWinner(tempWinner); // 🎯 CHỈ SET winner KHI TẤT CẢ ĐÃ DỪNG
+                    setWinner(tempWinner);
                     setShowResult(true);
+                    setParams((prev) => ({...prev, render: !prev.render}));
                 }, 2000);
             }, 5000);
-
         } catch (err) {
             console.log('Lỗi khi quay số:', err);
             setSpinning(false);
@@ -145,7 +146,7 @@ const Wheel = () => {
                     }}
                 />
             </div>
-            <div className="md:col-7" style={{ marginTop: '20vh' }}>
+            <div className="md:col-7" style={{marginTop: '20vh'}}>
                 <div className="grid">
                     <div className="md:col-10 flex align-items-end justify-content-end gap-1">
                         {displayCode.map((char, idx) => (
@@ -168,7 +169,7 @@ const Wheel = () => {
                     </div>
                 </div>
                 <div className="flex justify-content-center"
-                     style={{gap: '1vw' ,marginTop: '3vh', height: '9vh', alignItems: 'center'}}>
+                     style={{gap: '1vw', marginTop: '3vh', height: '9vh', alignItems: 'center'}}>
                     <div
                         style={{
                             background: 'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)',

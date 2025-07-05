@@ -18,9 +18,9 @@ export default function BirthdayLogin() {
             return toast.error('Vui lòng nhập tên nhân viên!');
         }
         const isAdmin = code === 'MBADMIN7725';
-        const isValidEmployeeCode = /^MB\d{4}$/.test(code);
+        const isValidEmployeeCode = /^MB\d{4,5}$/.test(code);
         if (!isAdmin && !isValidEmployeeCode) {
-            return toast.error('Mã nhân viên không hợp lệ! Phải bắt đầu bằng "MB" và gồm 4 chữ số.');
+            return toast.error('Mã nhân viên không hợp lệ! Phải bắt đầu bằng "MB" và gồm 4 hoặc 5 chữ số.');
         }
         const info = {...infos}
         const response = await loginApi({...info})
